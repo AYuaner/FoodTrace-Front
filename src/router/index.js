@@ -80,6 +80,7 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
+    meta: { role: ['admin', 'super_editor'] },
     children: [
       {
         path: 'index',
@@ -158,10 +159,10 @@ export const constantRoutes = [
         meta: { title: 'External Link', icon: 'link' }
       }
     ]
-  },
+  }
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
@@ -169,6 +170,22 @@ const createRouter = () => new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
+
+export const asyncRoutes = [
+  {
+    path: '/accounts',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '账号管理',
+        component: () => import('@/views/account/index'),
+        meta: { title: '账号管理', icon: 'user', roles: ['admin'] }
+      }
+    ]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+]
 
 const router = createRouter()
 
