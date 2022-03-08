@@ -22,3 +22,7 @@ export function newAccount(data) {
     data: data
   })
 }
+
+export function updateAccount(data) {
+  console.log(data)
+}
