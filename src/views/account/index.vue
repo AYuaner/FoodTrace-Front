@@ -15,7 +15,7 @@
     <el-divider />
 
     <el-dialog :title="title" :visible.sync="dialogFormVisible">
-      <el-form :model="form" status-icon :rules="formRules">
+      <el-form ref="form" :model="form" status-icon :rules="formRules">
         <el-form-item label="用户名" :label-width="formLabelWidth" prop="username" required>
           <el-input v-model.trim="form.username" />
         </el-form-item>
@@ -86,6 +86,7 @@ export default {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
         callback(new Error('请输入正确的用户名'))
+        return
       } else {
         callback()
       }
@@ -93,6 +94,7 @@ export default {
     const validataPassword = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error('密码不能少于6位'))
+        return
       } else {
         callback()
       }
@@ -154,11 +156,17 @@ export default {
       this.dialogFormVisible = false
     },
     commit() {
-      if (this.formType === 'add') {
-        this.addCommit()
-      } else if (this.formType === 'update') {
-        this.updateCommit()
-      }
+      this.$refs.form.validate(valid => {
+        if (!valid) {
+          console.log('error submit!!')
+          return false
+        }
+        if (this.formType === 'add') {
+          this.addCommit()
+        } else if (this.formType === 'update') {
+          this.updateCommit()
+        }
+      })
     },
     addCommit() {
       newAccount(this.form).then((response) => {
@@ -180,7 +188,7 @@ export default {
         if (response.data.result === false) {
           this.$message('修改信息失败')
         } else if (response.data.result === true) {
-          this.$message('新增用户成功')
+          this.$message('修改信息成功')
           this.form.username = ''
           this.form.password = ''
           this.form.role = ''
@@ -220,8 +228,8 @@ export default {
 /*
 TODO
 新建用户时的表单验证 X
-查询单个用户功能
-编辑用户信息功能
+查询单个用户功能 X
+编辑用户信息功能 X
 分页功能
 */
 </script>

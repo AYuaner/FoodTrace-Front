@@ -24,5 +24,9 @@ export function newAccount(data) {
 }
 
 export function updateAccount(data) {
-  console.log(data)
+  return request({
+    url: '/account/' + data.id,
+    method: 'put',
+    data: data
+  })
 }
