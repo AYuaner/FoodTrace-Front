@@ -184,6 +184,55 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/farm',
+    component: Layout,
+    meta: { icon: 'example' },
+    children: [
+      {
+        path: 'seed',
+        name: '播种信息',
+        component: () => import('@/views/farm/seed'),
+        meta: { title: '播种信息', icon: 'example', roles: ['admin', 'producer'] }
+      },
+      {
+        path: 'grow',
+        name: '成长期信息',
+        component: () => import('@/views/farm/grow'),
+        meta: { title: '成长期', icon: 'example', roles: ['admin', 'producer'] }
+      },
+      {
+        path: 'pick',
+        name: '采摘信息',
+        component: () => import('@/views/farm/pick'),
+        meta: { title: '采摘信息', icon: 'example', roles: ['admin', 'producer'] }
+      }
+    ]
+  },
+  {
+    path: '/transportation',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Transportation',
+        component: () => import('@/views/transportation/index'),
+        meta: { title: 'Transportation', icon: 'example', roles: ['admin', 'transportation'] }
+      }
+    ]
+  },
+  {
+    path: '/checkin',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'CheckIn',
+        component: () => import('@/views/checkin/index'),
+        meta: { title: 'CheckIn', icon: 'example', roles: ['admin', 'reseller'] }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
