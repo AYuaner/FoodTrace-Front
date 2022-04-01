@@ -185,6 +185,25 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/dict',
+    component: Layout,
+    meta: { icon: 'example' },
+    children: [
+      {
+        path: 'farm',
+        name: 'FarmInfo',
+        component: () => import('@/views/dictionary/framDict'),
+        meta: { title: 'FarmIno', icon: 'example', roles: ['admin', 'producer'] }
+      },
+      {
+        path: 'worker',
+        name: 'workerInfo',
+        component: () => import('@/views/dictionary/workerDict'),
+        meta: { title: 'WorkerInfo', icon: 'user', roles: ['admin', 'producer'] }
+      }
+    ]
+  },
+  {
     path: '/farm',
     component: Layout,
     meta: { icon: 'example' },

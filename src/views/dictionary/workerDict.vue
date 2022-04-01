@@ -17,17 +17,26 @@
 
     <el-dialog :title="title" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="form" status-icon :rules="formRules">
-        <el-form-item label="FarmID" :label-width="formLabelWidth" prop="id" required>
-          <el-input v-model.trim="form.id" :disabled="idInputdis" />
+        <el-form-item label="WorkerID" :label-width="formLabelWidth" prop="id" required>
+          <el-input v-model.trim="form.id" :disabled="idInputdis" clearable />
         </el-form-item>
         <el-form-item label="Name" :label-width="formLabelWidth" prop="name" required>
-          <el-input v-model.trim="form.name" />
+          <el-input v-model.trim="form.name" clearable />
         </el-form-item>
-        <el-form-item label="Company" :label-width="formLabelWidth" prop="company" required>
-          <el-input v-model.trim="form.company" />
+        <el-form-item label="Age" :label-width="formLabelWidth" prop="age" required>
+          <el-input v-model.trim="form.age" clearable />
         </el-form-item>
-        <el-form-item label="Location" :label-width="formLabelWidth" prop="location" required>
-          <el-input v-model.trim="form.location" />
+        <el-form-item label="Gender" :label-width="formLabelWidth" prop="gender" required>
+          <el-radio-group v-model="form.gender">
+            <el-radio-button v-model="form.gender" label="true">Male</el-radio-button>
+            <el-radio-button v-model="form.gender" label="false">Female</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="PhoneNumber" :label-width="formLabelWidth" prop="phoneNumber" required>
+          <el-input v-model.trim="form.phoneNumber" maxlength="11" mshow-word-limit clearable />
+        </el-form-item>
+        <el-form-item label="ID-Number" :label-width="formLabelWidth" prop="idNumber" required>
+          <el-input v-model.trim="form.idNumber" maxlength="18" show-word-limit clearable />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -49,7 +58,7 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="FarmId">
+      <el-table-column align="center" label="WorkerID">
         <template slot-scope="scope">
           {{ scope.row.id }}
         </template>
@@ -59,14 +68,24 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Company">
+      <el-table-column align="center" label="Age">
         <template slot-scope="scope">
-          {{ scope.row.company }}
+          {{ scope.row.age }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Location">
+      <el-table-column align="center" label="Gender">
         <template slot-scope="scope">
-          {{ scope.row.location }}
+          {{ scope.row.gender }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="PhoneNumber">
+        <template slot-scope="scope">
+          {{ scope.row.phoneNumber }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="IDNumber">
+        <template slot-scope="scope">
+          {{ scope.row.idNumber }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="Op">
@@ -80,13 +99,21 @@
 </template>
 
 <script>
-import { getList, newOne, updateOne, deleteOne } from '@/api/farm'
+import { getList, newOne, updateOne, deleteOne } from '@/api/worker'
 
 export default {
   data() {
     const validate = (rule, value, callback) => {
       if (value.length < 0) {
         callback(new Error('不能为空'))
+        return
+      } else {
+        callback()
+      }
+    }
+    const IDvalidate = (rule, value, callback) => {
+      if (value.length < 18) {
+        callback(new Error('id number shuold be 18'))
         return
       } else {
         callback()
@@ -105,14 +132,17 @@ export default {
       form: {
         id: '',
         name: '',
-        company: '',
-        location: ''
+        age: '',
+        gender: true,
+        phoneNumber: '',
+        idNumber: ''
       },
       formRules: {
         id: [{ required: true, trigger: 'blur', validator: validate }],
         name: [{ required: true, trigger: 'blur', validator: validate }],
-        company: [{ required: true, trigger: 'blur', validator: validate }],
-        location: [{ required: true, trigger: 'blur', validator: validate }]
+        age: [{ required: true, trigger: 'blur', validator: validate }],
+        phoneNumber: [{ required: true, trigger: 'blur', validator: validate }],
+        idNumber: [{ required: true, trigger: 'blur', validator: IDvalidate }]
       }
     }
   },
@@ -127,35 +157,6 @@ export default {
     this.fetchData()
   },
   methods: {
-    addClick() {
-      this.title = '新增用户'
-      this.form.id = ''
-      this.form.name = ''
-      this.form.company = ''
-      this.form.location = ''
-      this.formType = 'add'
-      this.idInputdis = false
-      this.dialogFormVisible = true
-    },
-    updateClick(data) {
-      this.title = '信息修改'
-      this.form.id = data.id
-      this.form.name = data.name
-      this.form.company = data.company
-      this.form.location = data.location
-      this.formType = 'update'
-      this.idInputdis = true
-      this.dialogFormVisible = true
-    },
-    deleteClick(data) {
-      deleteOne(data).then((response) => {
-        if (response.data.result === false) {
-          this.$message(response.data.errorInfo)
-        }
-        this.list = ''
-        this.fetchData()
-      })
-    },
     fetchData() {
       this.listLoading = true
       getList().then((response) => {
@@ -169,11 +170,25 @@ export default {
         return value.name.indexOf(this.searchName) !== -1
       })
     },
+    addClick() {
+      this.title = '新增用户'
+      this.form.id = ''
+      this.form.name = ''
+      this.form.age = ''
+      this.form.gender = true
+      this.form.phoneNumber = ''
+      this.form.idNumber = ''
+      this.formType = 'add'
+      this.idInputdis = false
+      this.dialogFormVisible = true
+    },
     cancel() {
       this.form.id = ''
       this.form.name = ''
-      this.form.company = ''
-      this.form.location = ''
+      this.form.age = ''
+      this.form.gender = true
+      this.form.phoneNumber = ''
+      this.form.idNumber = ''
       this.dialogFormVisible = false
     },
     commit() {
@@ -197,8 +212,10 @@ export default {
           this.$message('新增用户成功')
           this.form.id = ''
           this.form.name = ''
-          this.form.company = ''
-          this.form.location = ''
+          this.form.age = ''
+          this.form.gender = true
+          this.form.phoneNumber = ''
+          this.form.idNumber = ''
           this.list = ''
           this.fetchData()
         }
@@ -213,13 +230,39 @@ export default {
           this.$message('修改信息成功')
           this.form.id = ''
           this.form.name = ''
-          this.form.company = ''
-          this.form.location = ''
+          this.form.age = ''
+          this.form.gender = true
+          this.form.phoneNumber = ''
+          this.form.idNumber = ''
           this.list = ''
           this.fetchData()
         }
         this.dialogFormVisible = false
       })
+    },
+    updateClick(data) {
+      this.title = '信息修改'
+      this.form.id = data.id
+      this.form.name = data.name
+      this.form.age = data.age
+      this.form.gender = data.gender
+      this.form.phoneNumber = data.phoneNumber
+      this.form.idNumber = data.idNumber
+      this.formType = 'update'
+      this.idInputdis = true
+      this.dialogFormVisible = true
+    },
+    deleteClick(data) {
+      deleteOne(data).then((response) => {
+        if (response.data.result === false) {
+          this.$message(response.data.errorInfo)
+        }
+        this.list = ''
+        this.fetchData()
+      })
+    },
+    changeClick(data) {
+      console.log(data)
     }
   }
 }
