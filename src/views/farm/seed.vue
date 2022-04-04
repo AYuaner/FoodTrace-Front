@@ -197,31 +197,13 @@ export default {
     },
     addClick() {
       this.title = 'New Record'
-      this.cropsId = ''
-      this.cropsName = ''
-      this.address = ''
-      this.seedTime = ''
-      this.farmId = ''
-      this.farmName = ''
-      this.operatorId = ''
-      this.operatorName = ''
-      this.remarks = ''
-      this.createdTime = ''
+      this.clearForm
       this.dialogFormVisible = true
       this.getFarmList()
       this.getWorkerList()
     },
     cancel() {
-      this.cropsId = ''
-      this.cropsName = ''
-      this.address = ''
-      this.seedTime = ''
-      this.farmId = ''
-      this.farmName = ''
-      this.operatorId = ''
-      this.operatorName = ''
-      this.remarks = ''
-      this.createdTime = ''
+      this.clearForm()
       this.dialogFormVisible = false
     },
     commit() {
@@ -238,17 +220,8 @@ export default {
         if (response.data.result === false) {
           this.$message(response.data.errorInfo)
         } else if (response.data.result === true) {
-          this.$message('新增用户成功')
-          this.cropsId = ''
-          this.cropsName = ''
-          this.address = ''
-          this.seedTime = ''
-          this.farmId = ''
-          this.farmName = ''
-          this.operatorId = ''
-          this.operatorName = ''
-          this.remarks = ''
-          this.createdTime = ''
+          this.$message('新增成功')
+          this.clearForm()
           this.list = ''
           this.fetchData()
         }
@@ -283,6 +256,18 @@ export default {
           this.form.operatorId = element.id
         }
       })
+    },
+    clearForm() {
+      this.form.cropsId = ''
+      this.form.cropsName = ''
+      this.form.address = ''
+      this.form.seedTime = ''
+      this.form.farmId = ''
+      this.form.farmName = ''
+      this.form.operatorId = ''
+      this.form.operatorName = ''
+      this.form.remarks = ''
+      this.form.createdTime = ''
     }
   }
 }
