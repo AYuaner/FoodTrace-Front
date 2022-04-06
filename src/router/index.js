@@ -32,6 +32,11 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
+    path: '/trace',
+    component: () => import('@/views/query/index')
+  },
+
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
