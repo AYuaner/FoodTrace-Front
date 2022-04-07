@@ -33,7 +33,8 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/trace',
-    component: () => import('@/views/query/index')
+    component: () => import('@/views/query/index'),
+    hidden: true
   },
 
   {

@@ -1,5 +1,10 @@
 <template>
   <div class="login-container">
+
+    <div class="toLogin-container">
+      <i style="font-size:30px" class="el-icon-user" @click="redirectClick" />
+    </div>
+
     <el-form ref="form" :model="form" :rules="rules" class="login-form" label-position="left">
 
       <div class="title-container">
@@ -8,7 +13,7 @@
 
       <el-form-item prop="traceCode">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <i class="el-icon-coin" />
         </span>
         <el-input
           v-model="form.traceCode"
@@ -17,142 +22,188 @@
           type="text"
         />
       </el-form-item>
-
-      <el-dialog class="traceInfoDialog" title="TraceInfo" :visible.sync="dialogFormVisible">
-        <el-timeline>
-          <!-- SeedInfo -->
-          <el-timeline-item :timestamp="seedInfo.seedTime" placement="top">
-            <el-card>
-              <h4>SeedInfo</h4>
-              <table cellspacing="10">
-                <tr>
-                  <td><b>CropsName:</b></td>
-                  <td>{{ seedInfo.cropsName }}</td>
-                </tr>
-                <tr>
-                  <td><b>FarmName:</b></td>
-                  <td>{{ seedInfo.farmName }}</td>
-                </tr>
-                <tr>
-                  <td><b>Address:</b></td>
-                  <td>{{ seedInfo.address }}</td>
-                </tr>
-                <tr>
-                  <td><b>Operator:</b></td>
-                  <td>{{ seedInfo.operatorName }}</td>
-                </tr>
-                <tr>
-                  <td><b>Remarks:</b></td>
-                  <td>{{ seedInfo.remarks }}</td>
-                </tr>
-                <tr>
-                  <td><b>RecordTime:</b></td>
-                  <td>{{ seedInfo.createdTime }}</td>
-                </tr>
-              </table>
-            </el-card>
-          </el-timeline-item>
-          <!-- GrowInfo -->
-          <el-timeline-item v-for="element in growInfo" :key="element.operationId" :timestamp="element.operateTime" placement="top">
-            <el-card>
-              <h4>GrowInfo</h4>
-              <table cellspacing="10">
-                <tr>
-                  <td><b>OperateType:</b></td>
-                  <td>{{ element.operateType }}</td>
-                </tr>
-                <tr>
-                  <td><b>Operator:</b></td>
-                  <td>{{ element.operatorName }}</td>
-                </tr>
-                <tr>
-                  <td><b>Tools:</b></td>
-                  <td>{{ element.tools }}</td>
-                </tr>
-                <tr>
-                  <td><b>Remarks:</b></td>
-                  <td>{{ element.remarks }}</td>
-                </tr>
-                <tr>
-                  <td><b>RecordTime:</b></td>
-                  <td>{{ element.createdTime }}</td>
-                </tr>
-              </table>
-            </el-card>
-          </el-timeline-item>
-          <!-- PickInfo -->
-          <el-timeline-item :timestamp="pickInfo.operateTime" placement="top">
-            <el-card>
-              <h4>PickInfo</h4>
-              <table cellspacing="10">
-                <tr>
-                  <td><b>Operator:</b></td>
-                  <td>{{ pickInfo.operatorName }}</td>
-                </tr>
-                <tr>
-                  <td><b>Remarks:</b></td>
-                  <td>{{ pickInfo.remarks }}</td>
-                </tr>
-                <tr>
-                  <td><b>RecordTime:</b></td>
-                  <td>{{ pickInfo.createdTime }}</td>
-                </tr>
-              </table>
-            </el-card>
-          </el-timeline-item>
-          <!-- Transportation -->
-          <el-timeline-item :timestamp="transportation.startTime" placement="top">
-            <el-card>
-              <h4>Transportation</h4>
-              <table cellspacing="10">
-                <tr>
-                  <td><b>Company</b></td>
-                  <td>{{ transportation.company }}</td>
-                </tr>
-                <tr>
-                  <td><b>Driver:</b></td>
-                  <td>{{ transportation.driver }}</td>
-                </tr>
-                <tr>
-                  <td><b>Vehicle</b></td>
-                  <td>{{ transportation.vehicle }}</td>
-                </tr>
-                <tr>
-                  <td><b>StartTime:</b></td>
-                  <td>{{ transportation.startTime }}</td>
-                </tr>
-                <tr>
-                  <td><b>StartLocation:</b></td>
-                  <td>{{ transportation.startLocation }}</td>
-                </tr>
-                <tr>
-                  <td><b>EndTime:</b></td>
-                  <td>{{ transportation.endTime }}</td>
-                </tr>
-                <tr>
-                  <td><b>EndLocation:</b></td>
-                  <td>{{ transportation.endLocation }}</td>
-                </tr>
-                <tr>
-                  <td><b>Remarks:</b></td>
-                  <td>{{ pickInfo.remarks }}</td>
-                </tr>
-                <tr>
-                  <td><b>RecordTime:</b></td>
-                  <td>{{ pickInfo.createdTime }}</td>
-                </tr>
-              </table>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
-      </el-dialog>
-
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">GetInfo</el-button>
-
     </el-form>
+
+    <el-dialog class="traceInfoDialog" title="TraceInfo" :visible.sync="dialogFormVisible">
+      <el-timeline>
+        <!-- SeedInfo -->
+        <el-timeline-item v-show="seedInfo.cropsId!==null" :timestamp="seedInfo.seedTime" placement="top">
+          <el-card>
+            <h4>SeedInfo</h4>
+            <table cellspacing="10">
+              <tr>
+                <td><b>CropsName:</b></td>
+                <td>{{ seedInfo.cropsName }}</td>
+              </tr>
+              <tr>
+                <td><b>FarmName:</b></td>
+                <td>{{ seedInfo.farmName }}</td>
+              </tr>
+              <tr>
+                <td><b>Address:</b></td>
+                <td>{{ seedInfo.address }}</td>
+              </tr>
+              <tr>
+                <td><b>Operator:</b></td>
+                <td>{{ seedInfo.operatorName }}</td>
+              </tr>
+              <tr>
+                <td><b>Remarks:</b></td>
+                <td>{{ seedInfo.remarks }}</td>
+              </tr>
+              <tr>
+                <td><b>RecordTime:</b></td>
+                <td>{{ seedInfo.createdTime }}</td>
+              </tr>
+            </table>
+          </el-card>
+        </el-timeline-item>
+        <el-timeline-item v-show="seedInfo.cropsId===null">
+          <el-card>
+            <h4>SeedInfo Do Not Be Found</h4>
+          </el-card>
+        </el-timeline-item>
+        <!-- GrowInfo -->
+        <el-timeline-item v-for="element in growInfo" v-show="growInfo.length!==0" :key="element.operationId" :timestamp="element.operateTime" placement="top">
+          <el-card>
+            <h4>GrowInfo</h4>
+            <table cellspacing="10">
+              <tr>
+                <td><b>OperateType:</b></td>
+                <td>{{ element.operateType }}</td>
+              </tr>
+              <tr>
+                <td><b>Operator:</b></td>
+                <td>{{ element.operatorName }}</td>
+              </tr>
+              <tr>
+                <td><b>Tools:</b></td>
+                <td>{{ element.tools }}</td>
+              </tr>
+              <tr>
+                <td><b>Remarks:</b></td>
+                <td>{{ element.remarks }}</td>
+              </tr>
+              <tr>
+                <td><b>RecordTime:</b></td>
+                <td>{{ element.createdTime }}</td>
+              </tr>
+            </table>
+          </el-card>
+        </el-timeline-item>
+        <el-timeline-item v-show="growInfo.length===0">
+          <el-card>
+            <h4>GrowInfo Do Not Be Found</h4>
+          </el-card>
+        </el-timeline-item>
+        <!-- PickInfo -->
+        <el-timeline-item v-show="pickInfo.cropsId!==null" :timestamp="pickInfo.operateTime" placement="top">
+          <el-card>
+            <h4>PickInfo</h4>
+            <table cellspacing="10">
+              <tr>
+                <td><b>Operator:</b></td>
+                <td>{{ pickInfo.operatorName }}</td>
+              </tr>
+              <tr>
+                <td><b>Remarks:</b></td>
+                <td>{{ pickInfo.remarks }}</td>
+              </tr>
+              <tr>
+                <td><b>RecordTime:</b></td>
+                <td>{{ pickInfo.createdTime }}</td>
+              </tr>
+            </table>
+          </el-card>
+        </el-timeline-item>
+        <el-timeline-item v-show="pickInfo.cropsId===null">
+          <el-card>
+            <h4>PickInfo Do Not Be Found</h4>
+          </el-card>
+        </el-timeline-item>
+        <!-- Transportation -->
+        <el-timeline-item v-show="transportation.cropsId!==null" :timestamp="transportation.startTime" placement="top">
+          <el-card>
+            <h4>Transportation</h4>
+            <table cellspacing="10">
+              <tr>
+                <td><b>Company</b></td>
+                <td>{{ transportation.company }}</td>
+              </tr>
+              <tr>
+                <td><b>Driver:</b></td>
+                <td>{{ transportation.driver }}</td>
+              </tr>
+              <tr>
+                <td><b>Vehicle</b></td>
+                <td>{{ transportation.vehicle }}</td>
+              </tr>
+              <tr>
+                <td><b>StartTime:</b></td>
+                <td>{{ transportation.startTime }}</td>
+              </tr>
+              <tr>
+                <td><b>StartLocation:</b></td>
+                <td>{{ transportation.startLocation }}</td>
+              </tr>
+              <tr>
+                <td><b>EndTime:</b></td>
+                <td>{{ transportation.endTime }}</td>
+              </tr>
+              <tr>
+                <td><b>EndLocation:</b></td>
+                <td>{{ transportation.endLocation }}</td>
+              </tr>
+              <tr>
+                <td><b>Remarks:</b></td>
+                <td>{{ pickInfo.remarks }}</td>
+              </tr>
+              <tr>
+                <td><b>RecordTime:</b></td>
+                <td>{{ pickInfo.createdTime }}</td>
+              </tr>
+            </table>
+          </el-card>
+        </el-timeline-item>
+        <el-timeline-item v-show="transportation.cropsId===null">
+          <el-card>
+            <h4>Transportation Do Not Be Found</h4>
+          </el-card>
+        </el-timeline-item>
+        <!-- CheckIn -->
+        <el-timeline-item v-show="checkIn.cropsId!==null" :timestamp="checkIn.createdTime" placement="top">
+          <el-card>
+            <h4>CheckIn</h4>
+            <table cellspacing="10">
+              <tr>
+                <td><d>Company:</d></td>
+                <td>{{ checkIn.company }}</td>
+              </tr>
+              <tr>
+                <td><d>Location:</d></td>
+                <td>{{ checkIn.location }}</td>
+              </tr>
+              <tr>
+                <td><d>Operator:</d></td>
+                <td>{{ checkIn.operatorName }}</td>
+              </tr>
+              <tr>
+                <td><d>Remarks:</d></td>
+                <td>{{ checkIn.remarks }}</td>
+              </tr>
+            </table>
+          </el-card>
+        </el-timeline-item>
+        <el-timeline-item v-show="checkIn.cropsId===null">
+          <el-card>
+            <h4>CheckIn Do Not Be Found</h4>
+          </el-card>
+        </el-timeline-item>
+      </el-timeline>
+    </el-dialog>
   </div>
 </template>
-
 
 <script>
 import { getTraceInfo } from '@/api/trace'
@@ -171,14 +222,13 @@ export default {
     return {
       dialogFormVisible: false,
       form: {
-          traceCode: '',
+        traceCode: ''
       },
       seedInfo: '',
       growInfo: '',
       pickInfo: '',
       transportation: '',
       checkIn: '',
-      
       rules: {
         traceCode: [{ required: true, trigger: 'blur', validator: validateTraceCode }]
       },
@@ -214,6 +264,10 @@ export default {
           return false
         }
       })
+    },
+    redirectClick() {
+      console.log('redirc')
+      this.$router.replace('/login')
     }
   }
 }
@@ -263,6 +317,11 @@ $cursor: #fff;
     border-radius: 5px;
     color: #454545;
   }
+
+  .toLogin-container {
+    float: right;
+  }
+
 }
 
 .traceInfoDialog {
