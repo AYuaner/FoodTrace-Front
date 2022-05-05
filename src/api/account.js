@@ -11,7 +11,7 @@ export function updateEnable(data) {
   return request({
     url: '/account/' + data.id,
     method: 'delete',
-    data: this.datadata
+    data: data
   })
 }
 
@@ -24,6 +24,7 @@ export function newAccount(data) {
 }
 
 export function updateAccount(data) {
+  console.log(data)
   return request({
     url: '/account/' + data.id,
     method: 'put',

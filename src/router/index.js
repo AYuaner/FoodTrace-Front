@@ -205,7 +205,7 @@ export const asyncRoutes = [
         path: 'worker',
         name: 'workerInfo',
         component: () => import('@/views/dictionary/workerDict'),
-        meta: { title: 'WorkerInfo', icon: 'user', roles: ['admin', 'producer', 'transportation'] }
+        meta: { title: 'WorkerInfo', icon: 'user', roles: ['admin', 'producer', 'transportation', 'saler'] }
       },
       {
         path: 'vehicle',

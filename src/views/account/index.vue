@@ -25,6 +25,9 @@
         <el-form-item label="角色" :label-width="formLabelWidth" required>
           <el-input v-model.trim="form.role" />
         </el-form-item>
+        <el-form-item label="公司" :label-width="formLabelWidth" required>
+          <el-input v-model.trim="form.company" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel">取 消</el-button>
@@ -58,6 +61,11 @@
       <el-table-column label="角色" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.role }}
+        </template>
+      </el-table-column>
+      <el-table-column label="公司" width="200" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.company }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="100" align="center">
@@ -111,7 +119,8 @@ export default {
         id: '',
         username: '',
         password: '',
-        role: ''
+        role: '',
+        company: ''
       },
       formLabelWidth: '120px',
       formRules: {
@@ -134,12 +143,13 @@ export default {
     fetchData() {
       this.listLoading = true
       getList().then((response) => {
-        this.list = response.data.accounts
-        this.opList = response.data.accounts
+        this.list = response.data.listData
+        this.opList = response.data.listData
         this.listLoading = false
       })
     },
     changeEnable(data) {
+      console.log(data)
       this.listLoading = true
       updateEnable(data).then((response) => {
         if (response.data.result === false) {
@@ -153,6 +163,7 @@ export default {
       this.form.username = ''
       this.form.password = ''
       this.form.role = ''
+      this.form.company = ''
       this.dialogFormVisible = false
     },
     commit() {
@@ -177,6 +188,7 @@ export default {
           this.form.username = ''
           this.form.password = ''
           this.form.role = ''
+          this.form.company = ''
           this.list = ''
           this.fetchData()
         }
@@ -192,6 +204,7 @@ export default {
           this.form.username = ''
           this.form.password = ''
           this.form.role = ''
+          this.form.company = ''
           this.list = ''
           this.fetchData()
         }
@@ -208,6 +221,7 @@ export default {
       this.form.username = ''
       this.form.password = ''
       this.form.role = ''
+      this.form.company = ''
       this.formType = 'add'
       this.dialogFormVisible = true
     },
@@ -217,19 +231,11 @@ export default {
       this.form.username = data.username
       this.form.password = data.password
       this.form.role = data.role
+      this.form.company = data.company
       this.formType = 'update'
       this.dialogFormVisible = true
     }
   }
 }
 
-// TODO 完成account/index相关开发
-
-/*
-TODO
-新建用户时的表单验证 X
-查询单个用户功能 X
-编辑用户信息功能 X
-分页功能
-*/
 </script>
