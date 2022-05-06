@@ -191,6 +191,18 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/company',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '公司管理',
+        component: () => import('@/views/company/index'),
+        meta: { title: '公司管理', icon: 'el-icon-office-building', roles: ['admin'] }
+      }
+    ]
+  },
+  {
     path: '/dict',
     component: Layout,
     meta: { icon: 'example' },
@@ -211,7 +223,7 @@ export const asyncRoutes = [
         path: 'vehicle',
         name: 'VehicleInfo',
         component: () => import('@/views/dictionary/vehicleDict'),
-        meta: { title: 'VehicleInfo', icon: 'el-icon-truck', role: ['admin', 'transportation'] }
+        meta: { title: 'VehicleInfo', icon: 'el-icon-truck', roles: ['admin', 'transportation'] }
       }
     ]
   },
