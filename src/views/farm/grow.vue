@@ -210,7 +210,7 @@ export default {
     },
     getWorkerList() {
       getWorker().then((response) => {
-        this.workerOption = response.data.result
+        this.workerOption = response.data.listData
       })
     },
     workerSelectChange(value) {

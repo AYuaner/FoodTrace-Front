@@ -6,3 +6,11 @@ export function getList() {
     method: 'get'
   })
 }
+
+export function newOne(data) {
+  return request({
+    url: 'http://localhost:8081/checkin',
+    method: 'post',
+    data: data
+  })
+}

@@ -57,115 +57,114 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    meta: { role: ['admin', 'super_editor'] },
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
   }
+
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: 'Example',
+  //   meta: { title: 'Example', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'table',
+  //       name: 'Table',
+  //       component: () => import('@/views/table/index'),
+  //       meta: { title: 'Table', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'tree',
+  //       name: 'Tree',
+  //       component: () => import('@/views/tree/index'),
+  //       meta: { title: 'Tree', icon: 'tree' }
+  //     }
+  //   ]
+  // },
+
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   meta: { role: ['admin', 'super_editor'] },
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     }
+  //   ]
+  // },
+
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   redirect: '/nested/menu1',
+  //   name: 'Nested',
+  //   meta: {
+  //     title: 'Nested',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
+  //       name: 'Menu1',
+  //       meta: { title: 'Menu1' },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           component: () => import('@/views/nested/menu1/menu1-1'),
+  //           name: 'Menu1-1',
+  //           meta: { title: 'Menu1-1' }
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           component: () => import('@/views/nested/menu1/menu1-2'),
+  //           name: 'Menu1-2',
+  //           meta: { title: 'Menu1-2' },
+  //           children: [
+  //             {
+  //               path: 'menu1-2-1',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+  //               name: 'Menu1-2-1',
+  //               meta: { title: 'Menu1-2-1' }
+  //             },
+  //             {
+  //               path: 'menu1-2-2',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+  //               name: 'Menu1-2-2',
+  //               meta: { title: 'Menu1-2-2' }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: 'menu1-3',
+  //           component: () => import('@/views/nested/menu1/menu1-3'),
+  //           name: 'Menu1-3',
+  //           meta: { title: 'Menu1-3' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       component: () => import('@/views/nested/menu2/index'),
+  //       name: 'Menu2',
+  //       meta: { title: 'menu2' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // }
 
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }
@@ -184,7 +183,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'index',
-        name: '账号管理',
+        name: '账号信息',
         component: () => import('@/views/account/index'),
         meta: { title: '账号管理', icon: 'user', roles: ['admin'] }
       }
@@ -196,7 +195,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'index',
-        name: '公司管理',
+        name: '公司信息',
         component: () => import('@/views/company/index'),
         meta: { title: '公司管理', icon: 'el-icon-office-building', roles: ['admin'] }
       }
@@ -205,48 +204,43 @@ export const asyncRoutes = [
   {
     path: '/dict',
     component: Layout,
-    meta: { icon: 'example' },
+    name: '物料信息',
+    meta: { icon: 'example', title: '物料信息' },
     children: [
       {
         path: 'farm',
-        name: 'FarmInfo',
         component: () => import('@/views/dictionary/framDict'),
-        meta: { title: 'FarmIno', icon: 'example', roles: ['admin', 'producer'] }
+        meta: { title: '农场', icon: 'example', roles: ['admin', 'producer'] }
       },
       {
         path: 'worker',
-        name: 'workerInfo',
         component: () => import('@/views/dictionary/workerDict'),
-        meta: { title: 'WorkerInfo', icon: 'user', roles: ['admin', 'producer', 'transportation', 'saler'] }
+        meta: { title: '工人', icon: 'user', roles: ['admin', 'producer', 'transportation', 'saler'] }
       },
       {
         path: 'vehicle',
-        name: 'VehicleInfo',
         component: () => import('@/views/dictionary/vehicleDict'),
-        meta: { title: 'VehicleInfo', icon: 'el-icon-truck', roles: ['admin', 'transportation'] }
+        meta: { title: '车辆', icon: 'el-icon-truck', roles: ['admin', 'transportation'] }
       }
     ]
   },
   {
     path: '/farm',
     component: Layout,
-    meta: { icon: 'example' },
+    meta: { icon: 'example', title: '农场端' },
     children: [
       {
         path: 'seed',
-        name: '播种信息',
         component: () => import('@/views/farm/seed'),
         meta: { title: '播种信息', icon: 'example', roles: ['admin', 'producer'] }
       },
       {
         path: 'grow',
-        name: '成长期信息',
         component: () => import('@/views/farm/grow'),
-        meta: { title: '成长期', icon: 'example', roles: ['admin', 'producer'] }
+        meta: { title: '成长期信息', icon: 'example', roles: ['admin', 'producer'] }
       },
       {
         path: 'pick',
-        name: '采摘信息',
         component: () => import('@/views/farm/pick'),
         meta: { title: '采摘信息', icon: 'example', roles: ['admin', 'producer'] }
       }
@@ -258,9 +252,8 @@ export const asyncRoutes = [
     children: [
       {
         path: 'index',
-        name: 'Transportation',
         component: () => import('@/views/transportation/index'),
-        meta: { title: 'Transportation', icon: 'example', roles: ['admin', 'transportation'] }
+        meta: { title: '运输信息', icon: 'example', roles: ['admin', 'transportation'] }
       }
     ]
   },
@@ -270,9 +263,8 @@ export const asyncRoutes = [
     children: [
       {
         path: 'index',
-        name: 'CheckIn',
         component: () => import('@/views/checkin/index'),
-        meta: { title: 'CheckIn', icon: 'example', roles: ['admin', 'reseller'] }
+        meta: { title: '入库信息', icon: 'example', roles: ['admin', 'reseller'] }
       }
     ]
   },

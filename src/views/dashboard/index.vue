@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">欢迎使用FoodTrace溯源系统</div>
+    <div class="dashboard-name">用户: {{ name }}</div>
   </div>
 </template>
 
@@ -23,8 +24,12 @@ export default {
     margin: 30px;
   }
   &-text {
-    font-size: 30px;
+    font-size: 20px;
     line-height: 46px;
+  }
+  &-name {
+    font-size: 30px;
+    color: brown;
   }
 }
 </style>

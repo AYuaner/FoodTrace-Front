@@ -222,12 +222,12 @@ export default {
     },
     getWorkerList() {
       getWorker().then((response) => {
-        this.workerOption = response.data.result
+        this.workerOption = response.data.listData
       })
     },
     getVehicleList() {
       getVehicle().then((response) => {
-        this.vehicleOption = response.data.result
+        this.vehicleOption = response.data.listData
       })
     },
     cancelClick() {

@@ -235,7 +235,7 @@ export default {
     },
     getFarmList() {
       getFarms().then((reponse) => {
-        this.farmOption = reponse.data.result
+        this.farmOption = reponse.data.listData
       })
     },
     FarmSelectChange(value) {
@@ -247,7 +247,7 @@ export default {
     },
     getWorkerList() {
       getWorkers().then((response) => {
-        this.workerOption = response.data.result
+        this.workerOption = response.data.listData
       })
     },
     WorkerSeleceChange(value) {
