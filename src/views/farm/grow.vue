@@ -3,7 +3,7 @@
 
     <el-form :inline="true">
       <el-form-item>
-        <el-input v-model="searchContent" placeholder="请输入要查询CropsID" clearable @keydown.enter.native="search" />
+        <el-input v-model="searchContent" placeholder="请输入要查询批次ID" clearable @keydown.enter.native="search" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="searchClick">搜索</el-button>
@@ -17,15 +17,15 @@
 
     <el-dialog :title="title" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="form" status-icon :rules="formRules">
-        <el-form-item label="OperationId" :label-width="formLabelWidth" prop="operationId" required>
+        <el-form-item label="操作流水ID" :label-width="formLabelWidth" prop="operationId" required>
           <el-input v-model="form.operationId" />
         </el-form-item>
 
-        <el-form-item label="CropsID" :label-width="formLabelWidth" prop="cropsId" required>
+        <el-form-item label="批次ID" :label-width="formLabelWidth" prop="cropsId" required>
           <el-input v-model="form.cropsId" />
         </el-form-item>
 
-        <el-form-item label="OperateType" :label-width="formLabelWidth" prop="operateType" required>
+        <el-form-item label="操作类型" :label-width="formLabelWidth" prop="operateType" required>
           <el-select v-model="form.operateType" placeholder="select operateType please">
             <el-option label="除草" value="除草" />
             <el-option label="驱虫" value="驱虫" />
@@ -33,25 +33,25 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="OperateTime" :label-width="formLabelWidth" prop="operateTime" required>
+        <el-form-item label="操作时间" :label-width="formLabelWidth" prop="operateTime" required>
           <el-date-picker v-model="form.operateTime" type="datetime" placeholder="select date and time please" />
         </el-form-item>
 
-        <el-form-item label="OperatorId" :label-width="formLabelWidth" prop="operatorId" required>
+        <el-form-item label="操作人员ID" :label-width="formLabelWidth" prop="operatorId" required>
           <el-input v-model="form.operatorId" disabled />
         </el-form-item>
 
-        <el-form-item label="OperatorName" :label-width="formLabelWidth" prop="operatorName" required>
+        <el-form-item label="操作人员名称" :label-width="formLabelWidth" prop="operatorName" required>
           <el-select v-model="form.operatorName" placeholder="select worker please" @change="workerSelectChange">
             <el-option v-for="option in workerOption" :key="option.id" :label="option.name" :value="option.name" />
           </el-select>
         </el-form-item>
 
-        <el-form-item label="Tools" :label-width="formLabelWidth" prop="tools" required>
+        <el-form-item label="工具" :label-width="formLabelWidth" prop="tools" required>
           <el-input v-model="form.tools" />
         </el-form-item>
 
-        <el-form-item label="Remarks" :label-width="formLabelWidth" prop="remarks" required>
+        <el-form-item label="备注" :label-width="formLabelWidth" prop="remarks" required>
           <el-input v-model="form.remarks" type="textarea" :rows="2" placeholder="please make remarks" />
         </el-form-item>
       </el-form>
@@ -74,7 +74,7 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="OperationId" align="center">
+      <el-table-column label="操作流水ID" align="center">
         <template slot-scope="scope">
           {{ scope.row.operationId }}
         </template>
@@ -84,37 +84,37 @@
           {{ scope.row.cropsId }}
         </template>
       </el-table-column>
-      <el-table-column label="OperateType" width="200" align="center">
+      <el-table-column label="操作类型" width="200" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.operateType }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="OperateTime" width="200" align="center">
+      <el-table-column label="操作时间" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operateTime }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorId" width="200" align="center">
+      <el-table-column label="操作人员ID" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorId }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorName" width="200" align="center">
+      <el-table-column label="操作人员名称" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorName }}
         </template>
       </el-table-column>
-      <el-table-column label="Tools" width="200" align="center">
+      <el-table-column label="工具" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.tools }}
         </template>
       </el-table-column>
-      <el-table-column label="Remarks" align="center">
+      <el-table-column label="备注" align="center">
         <template slot-scope="scope">
           {{ scope.row.remarks }}
         </template>
       </el-table-column>
-      <el-table-column label="CreatedTime" align="center">
+      <el-table-column label="记录时间" align="center">
         <template slot-scope="scope">
           {{ scope.row.createdTime }}
         </template>
@@ -236,9 +236,13 @@ export default {
     addCommit() {
       newOne(this.form).then((response) => {
         if (response.data.result === false) {
-          this.$message(response.data.errorInfo)
+          if (response.data.errorInfo === null) {
+            this.$message('添加失败')
+          } else {
+            this.$message(response.data.errorInfo)
+          }
         } else if (response.data.result === true) {
-          this.$message('Add Success')
+          this.$message('添加成功')
           this.clearForm()
           this.list = ''
           this.fetchData()

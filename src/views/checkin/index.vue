@@ -15,13 +15,13 @@
 
     <el-divider />
 
-    <el-dialog title="New Record" :visible.sync="dialogFormVisible">
+    <el-dialog title="新增记录" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="form" status-icon :rules="formRules">
-        <el-form-item label="CropsID" :label-width="formLabelWidth" prop="cropsId" required>
+        <el-form-item label="批次ID" :label-width="formLabelWidth" prop="cropsId" required>
           <el-input v-model="form.cropsId" />
         </el-form-item>
 
-        <el-form-item label="Company" :label-width="formLabelWidth" prop="company" required>
+        <el-form-item label="所属公司" :label-width="formLabelWidth" prop="company" required>
           <el-input v-model="form.company" />
         </el-form-item>
 
@@ -29,17 +29,17 @@
           <el-input v-model="form.location" />
         </el-form-item>
 
-        <el-form-item label="OperatorId" :label-width="formLabelWidth" prop="operatorId" required>
+        <el-form-item label="操作人员ID" :label-width="formLabelWidth" prop="operatorId" required>
           <el-input v-model="form.operatorId" disabled />
         </el-form-item>
 
-        <el-form-item label="操作人员" :label-width="formLabelWidth" prop="operatorName" required>
+        <el-form-item label="操作人员姓名" :label-width="formLabelWidth" prop="operatorName" required>
           <el-select v-model="form.operatorName" placeholder="select driver please" @change="workerSelectChange">
             <el-option v-for="option in workerOption" :key="option.id" :label="option.name" :value="option.name" />
           </el-select>
         </el-form-item>
 
-        <el-form-item label="Remarks" :label-width="formLabelWidth" prop="remarks" required>
+        <el-form-item label="备注" :label-width="formLabelWidth" prop="remarks" required>
           <el-input v-model="form.remarks" type="textarea" :rows="2" placeholder="please make remarks" />
         </el-form-item>
       </el-form>
@@ -62,37 +62,37 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="CropsId" align="center">
+      <el-table-column label="批次ID" align="center">
         <template slot-scope="scope">
           {{ scope.row.cropsId }}
         </template>
       </el-table-column>
-      <el-table-column label="Company" width="200" align="center">
+      <el-table-column label="所属公司" width="200" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.company }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Location" align="center">
+      <el-table-column label="位置" align="center">
         <template slot-scope="scope">
           {{ scope.row.location }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorId" align="center">
+      <el-table-column label="操作人员ID" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorId }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorName" align="center">
+      <el-table-column label="操作人员姓名" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorName }}
         </template>
       </el-table-column>
-      <el-table-column label="Remark" align="center">
+      <el-table-column label="备注" align="center">
         <template slot-scope="scope">
           {{ scope.row.remarks }}
         </template>
       </el-table-column>
-      <el-table-column label="CreatedTime" align="center">
+      <el-table-column label="创建时间" align="center">
         <template slot-scope="scope">
           {{ scope.row.createdTime }}
         </template>
@@ -226,14 +226,4 @@ export default {
     }
   }
 }
-
-// TODO 完成account/index相关开发
-
-/*
-TODO
-新建用户时的表单验证 X
-查询单个用户功能 X
-编辑用户信息功能 X
-分页功能
-*/
 </script>

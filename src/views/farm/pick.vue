@@ -3,7 +3,7 @@
 
     <el-form :inline="true">
       <el-form-item>
-        <el-input v-model="searchContent" placeholder="请输入要查询CropsID" clearable @keydown.enter.native="search" />
+        <el-input v-model="searchContent" placeholder="请输入要查询批次ID" clearable @keydown.enter.native="search" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="searchClick">搜索</el-button>
@@ -15,7 +15,7 @@
 
     <el-divider />
 
-    <el-dialog title="New Record" :visible.sync="dialogFormVisible">
+    <el-dialog title="新增记录" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="form" status-icon :rules="formRules">
         <el-form-item label="CropsID" :label-width="formLabelWidth" prop="cropsId" required>
           <el-input v-model="form.cropsId" />
@@ -194,9 +194,13 @@ export default {
     addCommit() {
       newOne(this.form).then((response) => {
         if (response.data.result === false) {
-          this.$message(response.data.errorInfo)
+          if (response.data.errorInfo === null) {
+            this.$message('添加失败')
+          } else {
+            this.$message(response.data.errorInfo)
+          }
         } else if (response.data.result === true) {
-          this.$message('Add Success')
+          this.$message('添加成功')
           this.clearForm()
           this.list = ''
           this.fetchData()

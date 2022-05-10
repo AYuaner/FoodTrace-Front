@@ -15,41 +15,41 @@
 
     <el-divider />
 
-    <el-dialog :title="title" :visible.sync="dialogFormVisible">
+    <el-dialog title="新增记录" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="form" status-icon :rules="formRules">
-        <el-form-item label="CropsId" :label-width="formLabelWidth" prop="cropsId" required>
+        <el-form-item label="批次ID" :label-width="formLabelWidth" prop="cropsId" required>
           <el-input v-model="form.cropsId" />
         </el-form-item>
-        <el-form-item label="CropsName" :label-width="formLabelWidth" prop="cropsName" required>
+        <el-form-item label="作物名称" :label-width="formLabelWidth" prop="cropsName" required>
           <el-input v-model="form.cropsName" />
         </el-form-item>
-        <el-form-item label="Address" :label-width="formLabelWidth" prop="address" required>
+        <el-form-item label="播种位置" :label-width="formLabelWidth" prop="address" required>
           <el-input v-model="form.address" />
         </el-form-item>
 
-        <el-form-item label="SeedTime" :label-width="formLabelWidth" prop="seedTime" required>
+        <el-form-item label="播种时间" :label-width="formLabelWidth" prop="seedTime" required>
           <el-date-picker v-model="form.seedTime" type="datetime" placeholder="select date and time please" />
         </el-form-item>
 
-        <el-form-item label="FarmID" :label-width="formLabelWidth" prop="farmId" required>
+        <el-form-item label="农场ID" :label-width="formLabelWidth" prop="farmId" required>
           <el-input v-model="form.farmId" disabled />
         </el-form-item>
-        <el-form-item label="FarmName" :label-width="formLabelWidth" prop="farmName" required>
+        <el-form-item label="农场名称" :label-width="formLabelWidth" prop="farmName" required>
           <el-select v-model="form.farmName" placeholder="select farm please" @change="FarmSelectChange">
             <el-option v-for="option in farmOption" :key="option.id" :label="option.name" :value="option.name" />
           </el-select>
         </el-form-item>
 
-        <el-form-item label="OperatorID" :label-width="formLabelWidth" prop="operatorId" required>
+        <el-form-item label="操作人员ID" :label-width="formLabelWidth" prop="operatorId" required>
           <el-input v-model="form.operatorId" disabled />
         </el-form-item>
-        <el-form-item label="OperatorName" :label-width="formLabelWidth" prop="operatorName" required>
+        <el-form-item label="操作人员姓名" :label-width="formLabelWidth" prop="operatorName" required>
           <el-select v-model="form.operatorName" placeholder="select worker please" @change="WorkerSeleceChange">
             <el-option v-for="option in workerOption" :key="option.id" :label="option.name" :value="option.name" />
           </el-select>
         </el-form-item>
 
-        <el-form-item label="Remarks" :label-width="formLabelWidth" prop="remarks" required>
+        <el-form-item label="备注" :label-width="formLabelWidth" prop="remarks" required>
           <el-input v-model="form.remarks" type="textarea" :rows="2" placeholder="please make remarks" />
         </el-form-item>
       </el-form>
@@ -82,42 +82,42 @@
           <span>{{ scope.row.cropsName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="地址" width="200" align="center">
+      <el-table-column label="播种位置" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.address }}
         </template>
       </el-table-column>
-      <el-table-column label="SeedTime" width="200" align="center">
+      <el-table-column label="播种时间" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.seedTime }}
         </template>
       </el-table-column>
-      <el-table-column label="FarmId" width="200" align="center">
+      <el-table-column label="农场ID" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.farmId }}
         </template>
       </el-table-column>
-      <el-table-column label="FarmName" width="200" align="center">
+      <el-table-column label="农场名称" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.farmName }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorId" width="200" align="center">
+      <el-table-column label="操作人员ID" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorId }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorName" width="200" align="center">
+      <el-table-column label="操作人员姓名" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorName }}
         </template>
       </el-table-column>
-      <el-table-column label="Remark" align="center">
+      <el-table-column label="备注" align="center">
         <template slot-scope="scope">
           {{ scope.row.remarks }}
         </template>
       </el-table-column>
-      <el-table-column label="CreatedTime" align="center">
+      <el-table-column label="记录时间" align="center">
         <template slot-scope="scope">
           {{ scope.row.createdTime }}
         </template>
@@ -143,7 +143,6 @@ export default {
     }
     return {
       searchName: '',
-      title: '',
       list: null,
       opList: null,
       listLoading: true,
@@ -196,7 +195,6 @@ export default {
       })
     },
     addClick() {
-      this.title = 'New Record'
       this.clearForm
       this.dialogFormVisible = true
       this.getFarmList()
@@ -218,7 +216,11 @@ export default {
     addCommit() {
       newOne(this.form).then((response) => {
         if (response.data.result === false) {
-          this.$message(response.data.errorInfo)
+          if (response.data.errorInfo === null) {
+            this.$message('添加失败')
+          } else {
+            this.$message(response.data.errorInfo)
+          }
         } else if (response.data.result === true) {
           this.$message('新增成功')
           this.clearForm()
