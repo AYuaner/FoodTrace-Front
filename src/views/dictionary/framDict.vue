@@ -159,7 +159,7 @@ export default {
     },
     // click event of the button '新增'
     addClick() {
-      this.title = '新增用户'
+      this.dialogTitle = '新增用户'
       this.clearForm()
       this.formType = 'add'
       this.fetchCompanyOptionData()
@@ -167,7 +167,7 @@ export default {
     },
     // click event of the button '编辑'
     updateClick(data) {
-      this.title = '信息修改'
+      this.dialogTitle = '信息修改'
       this.form = data
       this.formType = 'update'
       this.fetchCompanyOptionData()
@@ -175,7 +175,6 @@ export default {
     },
     // dialog cancle and commit button
     dialogCancleClick() {
-      this.clearForm()
       this.dialogFormVisible = false
     },
     dialogCommitClick() {

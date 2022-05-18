@@ -17,25 +17,25 @@
 
     <el-dialog title="新增记录" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="form" status-icon :rules="formRules">
-        <el-form-item label="CropsID" :label-width="formLabelWidth" prop="cropsId" required>
+        <el-form-item label="批次ID" :label-width="formLabelWidth" prop="cropsId" required>
           <el-input v-model="form.cropsId" />
         </el-form-item>
 
-        <el-form-item label="OperateTime" :label-width="formLabelWidth" prop="operateTime" required>
+        <el-form-item label="采摘时间" :label-width="formLabelWidth" prop="operateTime" required>
           <el-date-picker v-model="form.operateTime" type="datetime" placeholder="select date and time please" />
         </el-form-item>
 
-        <el-form-item label="OperatorID" :label-width="formLabelWidth" prop="operatorId" required>
+        <el-form-item label="操作人员ID" :label-width="formLabelWidth" prop="operatorId" required>
           <el-input v-model="form.operatorId" disabled />
         </el-form-item>
 
-        <el-form-item label="OperatorName" :label-width="formLabelWidth" prop="operatorName" required>
+        <el-form-item label="操作人员姓名" :label-width="formLabelWidth" prop="operatorName" required>
           <el-select v-model="form.operatorName" placeholder="select worker please" @change="workerSelectChange">
             <el-option v-for="option in workerOption" :key="option.id" :label="option.name" :value="option.name" />
           </el-select>
         </el-form-item>
 
-        <el-form-item label="Remarks" :label-width="formLabelWidth" prop="remarks" required>
+        <el-form-item label="备注" :label-width="formLabelWidth" prop="remarks" required>
           <el-input v-model="form.remarks" type="textarea" :rows="2" placeholder="please make remarks" />
         </el-form-item>
       </el-form>
@@ -63,27 +63,27 @@
           {{ scope.row.cropsId }}
         </template>
       </el-table-column>
-      <el-table-column label="OperateTime" width="200" align="center">
+      <el-table-column label="采摘时间" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operateTime }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorId" width="200" align="center">
+      <el-table-column label="操作人员ID" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorId }}
         </template>
       </el-table-column>
-      <el-table-column label="OperatorName" width="200" align="center">
+      <el-table-column label="操作人员姓名" width="200" align="center">
         <template slot-scope="scope">
           {{ scope.row.operatorName }}
         </template>
       </el-table-column>
-      <el-table-column label="Remarks" align="center">
+      <el-table-column label="备注" align="center">
         <template slot-scope="scope">
           {{ scope.row.remarks }}
         </template>
       </el-table-column>
-      <el-table-column label="CreatedTime" align="center">
+      <el-table-column label="记录时间" align="center">
         <template slot-scope="scope">
           {{ scope.row.createdTime }}
         </template>

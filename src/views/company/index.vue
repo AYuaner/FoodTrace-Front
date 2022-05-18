@@ -137,7 +137,6 @@ export default {
     },
     // dialog cancle and commit button
     dialogCancleClick() {
-      this.clearForm()
       this.dialogFormVisible = false
     },
     dialogCommitClick() {
